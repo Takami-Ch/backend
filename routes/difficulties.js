@@ -46,14 +46,14 @@ module.exports = (fastify, opts, done) => {
 
         const difficulties = rawDifficulties.map(difficulty => {
             return {
-                Overall: difficulty.Overall,
-                Chordjack: difficulty.Chordjack,
-                Handstream: difficulty.Handstream,
-                Jack: difficulty.Jack,
-                Jumpstream: difficulty.Jumpstream,
-                Stamina: difficulty.Stamina,
-                Stream: difficulty.Stream,
-                Technical: difficulty.Technical,
+                Overall: difficulty.overall,
+                Chordjack: difficulty.chordjack,
+                Handstream: difficulty.handstream,
+                Jack: difficulty.jack,
+                Jumpstream: difficulty.jumpstream,
+                Stamina: difficulty.stamina,
+                Stream: difficulty.stream,
+                Technical: difficulty.technical,
             }
         })
 
