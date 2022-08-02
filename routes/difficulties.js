@@ -1,8 +1,7 @@
 const fs = require("fs")
 const md5 = require("md5")
 
-const Match = require("../models/match")
-const Profile = require("../models/profile")
+const Difficulty = require("../models/difficulty")
 
 const { promisify } = require("util")
 const { exec } = require("child_process")
@@ -29,12 +28,26 @@ module.exports = (fastify, opts, done) => {
             await fs.writeFileSync(`./_maps/${hash}.json`, strBody)
         }
 
+        const difficulty = Difficulty.findOne({ SongMD5Hash: hash })
+
+        if (difficulty) {
+            await reply.send(difficulty.Difficulties)
+            return
+        }
+
         const { stdout, stderr } = await execAsync(`cat ./_maps/${hash}.json | minacalc`)
 
         if (stderr) {
             await reply.code(500).send({ error: stderr })
             return
         }
+
+        const diff = new Difficulty({
+            SongMD5Hash: hash,
+            Difficulties: JSON.parse(stdout),
+        })
+
+        await diff.save()
 
         await reply.send(JSON.parse(stdout))
     })
