@@ -28,7 +28,7 @@ module.exports = (fastify, opts, done) => {
             await fs.writeFileSync(`./_maps/${hash}.json`, strBody)
         }
 
-        const difficulty = Difficulty.findOne({ SongMD5Hash: hash })
+        const difficulty = await Difficulty.findOne({ SongMD5Hash: hash })
 
         if (difficulty) {
             await reply.send(difficulty.Difficulties)
