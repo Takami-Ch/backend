@@ -54,6 +54,7 @@ module.exports = (fastify, opts, done) => {
                 Stamina: difficulty.stamina,
                 Stream: difficulty.stream,
                 Technical: difficulty.technical,
+                Rate: difficulty.rate,
             }
         })
 
@@ -64,7 +65,7 @@ module.exports = (fastify, opts, done) => {
 
         await diff.save()
 
-        await reply.send(JSON.parse(stdout))
+        await reply.send(difficulties)
     })
 
     done()

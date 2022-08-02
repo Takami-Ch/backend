@@ -9,6 +9,7 @@ const Difficulty = new Schema({
     Stamina: Number,
     Stream: Number,
     Technical: Number,
+    Rate: Number,
 })
 
 const schema = new Schema({
