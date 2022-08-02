@@ -42,9 +42,24 @@ module.exports = (fastify, opts, done) => {
             return
         }
 
+        const rawDifficulties = JSON.parse(stdout)
+
+        const difficulties = rawDifficulties.map(difficulty => {
+            return {
+                Overall: difficulty.Overall,
+                Chordjack: difficulty.Chordjack,
+                Handstream: difficulty.Handstream,
+                Jack: difficulty.Jack,
+                Jumpstream: difficulty.Jumpstream,
+                Stamina: difficulty.Stamina,
+                Stream: difficulty.Stream,
+                Technical: difficulty.Technical,
+            }
+        })
+
         const diff = new Difficulty({
             SongMD5Hash: hash,
-            Difficulties: JSON.parse(stdout),
+            Difficulties: difficulties,
         })
 
         await diff.save()
